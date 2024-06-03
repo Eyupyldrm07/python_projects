@@ -1,5 +1,7 @@
 from pytube import YouTube
 import time 
+from pytube import Playlist
+
 
 
 def bilgileri_göster():
@@ -41,8 +43,23 @@ def ses_indir():
     print("Ses Uzunluğu:",son_dakika,"dakika")
     print("*"*45)
 
+
+
+def play_listIndir():
+    url = YouTube(input("Lütfen Indirilecek Playlsit  Linkini Yapistiriniz:"))
+    son_dakika=url.length/60
+    playlist = Playlist(url)
+
+    for video in playlist.videos:
+         try:
+        # Videoyu indirin
+          video.streams.get_highest_resolution().download()
+          print(f"{video.title} indirildi.")
+         except Exception as e:
+             print(f"{video.title} indirilemedi: {e}")
+    
 while True:
-    sec  = input('1-Youtube Video Bilgilerini Goster\n2-Video indir \n3-Ses indir\n4-Çıkış\n')
+    sec  = input('1-Youtube Video Bilgilerini Goster\n2-Video indir \n3-Ses indir\n4-Playlist Indir \n5-Cikis..\n')
 
     if sec == '1':
         bilgileri_göster()
@@ -53,6 +70,9 @@ while True:
         input('Devam Edilsin mi  ?')
     elif sec=='3':
         ses_indir()
+    elif sec=='4':
+        play_listIndir()
+        input('Devam Edilsin mi  ?')
     else:
         print('Cikis Yapiliyor...')
         print('5')
