@@ -1,5 +1,4 @@
 from pytube import YouTube
-import time 
 from pytube import Playlist
 
 
@@ -46,25 +45,30 @@ def ses_indir():
 
 
 def play_listIndir():
-    url = YouTube(input("Lütfen Indirilecek Playlsit  Linkini Yapistiriniz:"))
-    son_dakika=url.length/60
-    playlist = Playlist(url)
+    playlist_url = input("Lütfen Indirilecek Playlist Linkini Yapistiriniz:")
+    p1 =Playlist(playlist_url)
 
-    for video in playlist.videos:
-         try:
-        # Videoyu indirin
-          video.streams.get_highest_resolution().download()
-          print(f"{video.title} indirildi.")
-         except Exception as e:
-             print(f"{video.title} indirilemedi: {e}")
+    i = 0
+  
+    for video_url in p1.video_urls:
+        i =  i + 1
+        yt=YouTube(video_url)
+        video = yt.streams.filter(progressive=True,file_extension='mp4').order_by('resolution').desc().first()
+        video.download(f'Videos/{yt.author}')
+        4
+        print('Indirildi !!',i) 
+    print('Hepsi Indirildi....')
     
+
+ 
+
+  
 while True:
     sec  = input('1-Youtube Video Bilgilerini Goster\n2-Video indir \n3-Ses indir\n4-Playlist Indir \n5-Cikis..\n')
 
     if sec == '1':
         bilgileri_göster()
         input('Devam Edilsin mi ?')
-
     elif sec=='2':
         video_indir()
         input('Devam Edilsin mi  ?')
@@ -73,7 +77,7 @@ while True:
     elif sec=='4':
         play_listIndir()
         input('Devam Edilsin mi  ?')
-    else:
+    elif sec=='5':
         print('Cikis Yapiliyor...')
         print('5')
         time.sleep(1)
@@ -87,6 +91,8 @@ while True:
         time.sleep(1)
         print('Uygulamadan Cikildi...')
         break
+    else:
+        print('gecersiz bir deger girdiniz....')
 
 
     

@@ -59,9 +59,10 @@ for i in firma_listesi:
    
 
     # Bilgileri sözlüğe ekle
-    listelenmis_hali[sirket_isim.replace('\n','').strip()] = div_cek.get('href').replace('mailto:','')
+    listelenmis_hali[sirket_isim.replace('\n','').strip()] = div_cek.get('href').replace("mailto:",'')
     tarayici1.quit()
     print(listelenmis_hali.items())
+    
 
 
 # Tüm bilgileri yazdır
