@@ -1,54 +1,59 @@
-#  Bankamatik Uygulamasi
+# Bankamatik Uygulamasi
 
+# Eyup YILDIRIM'in hesap bilgileri
 eyupHesap = {
-    'ad':'Eyup YILDIRIM',
-    'hesapNo':'13245678',
-    'bakiye':3000,
-    'ekHesap':2000
+    'ad': 'Eyup YILDIRIM',
+    'hesapNo': '13245678',
+    'bakiye': 3000,
+    'ekHesap': 2000
 }
 
+# Mustafa YILDIRIM'in hesap bilgileri
 mustafaHesap = {
-    'ad':'Mustafa  YILDIRIM',
-    'hesapNo':'13245678',
-    'bakiye':3000,
-    'ekHesap':2000
+    'ad': 'Mustafa YILDIRIM',
+    'hesapNo': '13245678',
+    'bakiye': 3000,
+    'ekHesap': 2000
 }
 
-
+# Para çekme işlemi için fonksiyon
 def paraCek(hesap, miktar):
-    print(f'Merhaba {hesap['ad']}')
+    print(f"Merhaba {hesap['ad']}")
 
-    if (hesap['bakiye'] >= miktar):
+    # Ana hesaptaki bakiyenin yeterli olup olmadığını kontrol et
+    if hesap['bakiye'] >= miktar:
         hesap['bakiye'] -= miktar
-        print('paranizi alabilirsiniz.')
+        print('Paranızı alabilirsiniz.')
         bakiyeSorgula(hesap)
 
     else:
         toplam = hesap['bakiye'] + hesap['ekHesap']
 
-        if (toplam >= miktar):
-            ekHesapKullanimi = input('Ek hesap kullanilsin mi (E/H)')
+        # Toplam bakiye yeterli mi kontrol et
+        if toplam >= miktar:
+            ekHesapKullanimi = input('Ek hesap kullanılsın mı (E/H): ')
 
-            if ekHesapKullanimi =='e':
-
+            if ekHesapKullanimi.lower() == 'e':
                 ekHesapKullanilacakMiktar = miktar - hesap['bakiye']
-                hesap ['bakiye'] = 0 
+                hesap['bakiye'] = 0
                 hesap['ekHesap'] -= ekHesapKullanilacakMiktar
-                print('paranizi alabilirsiniz')
+                print('Paranızı alabilirsiniz.')
                 bakiyeSorgula(hesap)
             else:
-                print(f'{hesap['hesapNo']}nolu hesabinizda {hesap['bakiye']} bulunmaktadir.')
-    
+                print(f"{hesap['hesapNo']} nolu hesabınızda {hesap['bakiye']} TL bulunmaktadır.")
 
         else:
-            print('uzgunuz bakiye yetersiz.')
+            print('Üzgünüz bakiye yetersiz.')
             bakiyeSorgula(hesap)
-            
 
+# Hesap bakiyesini sorgulama fonksiyonu
 def bakiyeSorgula(hesap):
-    print(f'{hesap['hesapNo']}nolu hesabinizda  {hesap['bakiye']} TL bulunmaktadir.Ek hesao liminitiz ise {hesap['ekHesap']} TL bulunmaktadir.')
+    print(f"{hesap['hesapNo']} nolu hesabınızda {hesap['bakiye']} TL bulunmaktadır. Ek hesap limitiniz ise {hesap['ekHesap']} TL bulunmaktadır.")
 
-paraCek(eyupHesap,3000)
+# Eyup YILDIRIM'in hesabından para çekme işlemi
+paraCek(eyupHesap, 3000)
 
 print('******************************')
-paraCek(eyupHesap,2000)
+
+# Eyup YILDIRIM'in hesabından tekrar para çekme işlemi
+paraCek(eyupHesap, 2000)
