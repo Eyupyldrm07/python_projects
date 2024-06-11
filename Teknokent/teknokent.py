@@ -31,8 +31,8 @@ firma_listesi = tarayici.find_elements(By.XPATH, '//div[contains(@class, "firma-
 print('Bulunan Firma sayisi', len(firma_listesi))
 print('Firma Listesi.oge ', firma_listesi[1].text)
 
-# Şirket bilgilerini saklamak için bir sözlük oluştur
-listelenmis_hali = {'Sirket ismi': 'sirket_isim', 'Sirket maili': 'div_cek'}
+#Şirket bilgilerini saklamak için bir sözlük oluştur
+listelenmis_hali = {'Sirket ismi': 'sirket_isim', 'Sirket maili': 'div_cek'}  
 
 # Her bir firma için bilgileri çek
 for i in firma_listesi:
@@ -56,12 +56,10 @@ for i in firma_listesi:
     div_cek = soup1.find('table', {'class': 'table'}).a
     sirket_isim = soup1.find('h1', {'class': 'section-title w-full t-left t-bold t-oswald profile-title'}).text
     
-   
-
     # Bilgileri sözlüğe ekle
     listelenmis_hali[sirket_isim.replace('\n','').strip()] = div_cek.get('href').replace("mailto:",'')
     tarayici1.quit()
-    print(listelenmis_hali.items())
+    
     
 
 
